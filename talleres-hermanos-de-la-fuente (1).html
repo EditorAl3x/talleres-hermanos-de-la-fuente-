@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Talleres Hermanos de la Fuente — Chapa y Pintura en Madrid</title>
+<style>
+  :root{
+    --ink:#15171A;
+    --charcoal:#1C1F24;
+    --steel:#2E333B;
+    --steel-light:#4A515C;
+    --paper:#ECEAE5;
+    --paper-dim:#DBD8D1;
+    --orange:#E1512B;
+    --orange-dark:#B83E20;
+    --yellow:#EFB223;
+    --white:#FFFFFF;
+    --radius:2px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Arial Narrow', 'Helvetica Neue Condensed', Impact, sans-serif;
+    font-weight:900;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    line-height:1.05;
+  }
+  .mono{font-family:'Consolas','Courier New',monospace; letter-spacing:0.5px;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+
+  /* Hazard stripe divider — signature element */
+  .hazard{
+    height:14px;
+    background:repeating-linear-gradient(
+      -45deg,
+      var(--orange),
+      var(--orange) 18px,
+      var(--charcoal) 18px,
+      var(--charcoal) 36px
+    );
+  }
+  .hazard.thin{height:8px;}
+
+  /* NAV */
+  header{
+    background:var(--charcoal);
+    color:var(--paper);
+    position:sticky; top:0; z-index:50;
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 28px; max-width:1180px; margin:0 auto;
+  }
+  .logo{
+    font-family:'Arial Narrow', sans-serif;
+    font-weight:900;
+    font-size:1.25rem;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:var(--white);
+  }
+  .logo span{color:var(--orange);}
+  .nav-links{display:flex; gap:28px; font-size:0.85rem; letter-spacing:0.5px; text-transform:uppercase; font-weight:600;}
+  .nav-links a{opacity:0.85; transition:opacity .2s, color .2s;}
+  .nav-links a:hover{opacity:1; color:var(--orange);}
+  .nav-cta{
+    background:var(--orange); color:var(--white); padding:10px 18px;
+    font-weight:700; font-size:0.85rem; letter-spacing:0.5px;
+    border-radius:var(--radius);
+  }
+  .nav-cta:hover{background:var(--orange-dark);}
+  @media(max-width:820px){ .nav-links{display:none;} }
+
+  /* HERO */
+  .hero{
+    background:var(--charcoal);
+    color:var(--white);
+    padding:90px 0 70px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; top:-40px; right:-120px;
+    width:480px; height:480px;
+    background:repeating-linear-gradient(-45deg, var(--orange) 0 16px, transparent 16px 32px);
+    opacity:0.14;
+    transform:rotate(12deg);
+  }
+  .hero-inner{position:relative; z-index:2; max-width:680px;}
+  .eyebrow{
+    color:var(--orange); font-weight:700; font-size:0.8rem;
+    letter-spacing:2px; text-transform:uppercase; margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:""; width:28px; height:3px; background:var(--orange); display:inline-block;}
+  .hero h1{
+    font-size:clamp(2.4rem, 5.5vw, 4rem);
+    margin-bottom:22px;
+  }
+  .hero h1 em{font-style:normal; color:var(--yellow);}
+  .hero p{
+    font-size:1.1rem; color:var(--paper-dim); max-width:520px; margin-bottom:34px;
+  }
+  .btn-row{display:flex; gap:16px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:15px 26px; font-weight:700; font-size:0.95rem;
+    border-radius:var(--radius); letter-spacing:0.3px;
+    transition:transform .15s, background .15s;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--orange); color:var(--white);}
+  .btn-primary:hover{background:var(--orange-dark);}
+  .btn-outline{border:2px solid var(--paper-dim); color:var(--white);}
+  .btn-outline:hover{border-color:var(--white);}
+
+  /* TRUST BAR */
+  .trust{
+    background:var(--steel); color:var(--paper);
+    padding:20px 0;
+  }
+  .trust .wrap{
+    display:flex; flex-wrap:wrap; gap:28px; align-items:center; justify-content:space-between;
+    font-size:0.85rem; letter-spacing:0.4px;
+  }
+  .trust-item{display:flex; align-items:center; gap:10px; font-weight:600;}
+  .badge-dot{width:8px; height:8px; background:var(--yellow); border-radius:50%; flex-shrink:0;}
+
+  /* SECTION GENERIC */
+  section{padding:80px 0;}
+  .section-head{max-width:640px; margin-bottom:48px;}
+  .section-head .eyebrow{color:var(--orange-dark);}
+  .section-head .eyebrow::before{background:var(--orange-dark);}
+  .section-head h2{font-size:clamp(1.8rem,3.5vw,2.6rem); color:var(--charcoal);}
+  .section-head p{color:var(--steel-light); margin-top:16px; font-size:1.05rem;}
+
+  /* SERVICES GRID */
+  .grid-services{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2px;
+    background:var(--charcoal);
+  }
+  .service-card{
+    background:var(--paper); padding:34px 28px; position:relative;
+    transition:background .2s;
+  }
+  .service-card:hover{background:var(--white);}
+  .service-tag{
+    font-family:'Consolas',monospace; font-size:0.75rem; color:var(--orange);
+    font-weight:700; letter-spacing:1px; margin-bottom:14px; display:block;
+  }
+  .service-card h3{font-size:1.05rem; color:var(--charcoal); margin-bottom:10px; letter-spacing:0.3px;}
+  .service-card p{font-size:0.92rem; color:var(--steel-light);}
+
+  /* WHY US */
+  .why{background:var(--charcoal); color:var(--paper);}
+  .why-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:36px;
+    margin-top:10px;
+  }
+  .why-item{border-left:3px solid var(--orange); padding-left:18px;}
+  .why-item h3{font-size:1.05rem; color:var(--white); margin-bottom:8px; letter-spacing:0.3px;}
+  .why-item p{color:var(--paper-dim); font-size:0.92rem;}
+
+  /* PAINT SWATCH BRAND STRIP — signature element 2 */
+  .brands{background:var(--paper);}
+  .swatch-row{
+    display:flex; flex-wrap:wrap; border:2px solid var(--charcoal); margin-top:10px;
+  }
+  .swatch{
+    flex:1 1 150px; padding:26px 20px; text-align:center;
+    border-right:2px solid var(--charcoal); position:relative;
+    color:var(--white); font-weight:800; font-size:0.95rem;
+    letter-spacing:0.5px; text-transform:uppercase;
+    min-height:100px; display:flex; align-items:center; justify-content:center;
+  }
+  .swatch:last-child{border-right:none;}
+  .swatch.c1{background:#8B1E2B;}
+  .swatch.c2{background:#1E3A5F;}
+  .swatch.c3{background:#3A3A3A;}
+  .swatch.c4{background:#C24914;}
+  .swatch.c5{background:#2F4F3E;}
+  .swatch.c6{background:#5A5A5A;}
+  .brands-note{margin-top:16px; font-size:0.88rem; color:var(--steel-light);}
+
+  /* QUOTE / PHOTO ESTIMATE CTA */
+  .photo-cta{
+    background:var(--orange); color:var(--white);
+    padding:60px 0; text-align:left;
+  }
+  .photo-cta .wrap{display:flex; flex-wrap:wrap; gap:30px; align-items:center; justify-content:space-between;}
+  .photo-cta h2{font-size:clamp(1.5rem,3vw,2.1rem); max-width:520px;}
+  .photo-cta p{margin-top:12px; max-width:480px; color:rgba(255,255,255,0.9);}
+  .photo-cta .btn-outline{border-color:rgba(255,255,255,0.6); color:var(--white);}
+
+  /* LOCATION / CONTACT */
+  .contact{background:var(--paper);}
+  .contact-grid{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:50px; margin-top:10px;
+  }
+  @media(max-width:820px){.contact-grid{grid-template-columns:1fr;}}
+  .info-block{background:var(--white); border:2px solid var(--charcoal); padding:32px;}
+  .info-block h3{font-size:1.1rem; color:var(--charcoal); margin-bottom:18px;}
+  .info-line{display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--paper-dim); font-size:0.95rem;}
+  .info-line:last-child{border-bottom:none;}
+  .info-line .label{color:var(--steel-light); font-weight:600;}
+  .info-line .val{font-weight:700; color:var(--charcoal); text-align:right;}
+  .map-block{
+    background:var(--charcoal); color:var(--paper); padding:32px;
+    display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .map-block h3{font-size:1.1rem; color:var(--white); margin-bottom:14px;}
+  .map-block p{color:var(--paper-dim); font-size:0.95rem; margin-bottom:24px;}
+
+  /* FOOTER */
+  footer{background:var(--charcoal); color:var(--paper-dim); padding:44px 0 26px;}
+  .footer-top{display:flex; flex-wrap:wrap; justify-content:space-between; gap:24px; padding-bottom:26px; border-bottom:1px solid var(--steel);}
+  .footer-logo{font-family:'Arial Narrow',sans-serif; font-weight:900; font-size:1.15rem; color:var(--white); text-transform:uppercase;}
+  .footer-links{display:flex; gap:22px; font-size:0.85rem;}
+  .footer-links a:hover{color:var(--orange);}
+  .footer-bottom{padding-top:20px; font-size:0.8rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+
+  @media(max-width:600px){
+    .hero{padding:64px 0 50px;}
+    section{padding:56px 0;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">Hnos.<span>·</span>De La Fuente</div>
+    <div class="nav-links">
+      <a href="#servicios">Servicios</a>
+      <a href="#por-que">Por qué elegirnos</a>
+      <a href="#marcas">Marcas</a>
+      <a href="#contacto">Cómo llegar</a>
+    </div>
+    <a class="nav-cta" href="tel:914088806">91 408 88 06</a>
+  </nav>
+</header>
+
+<div class="hazard"></div>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="eyebrow">Taller multimarca · Metro Quintana, Madrid</div>
+    <h1>30 años devolviendo <em>la chapa</em> a su estado original</h1>
+    <p>Especialistas en chapa y pintura en Ciudad Lineal. Trabajamos con todas las aseguradoras y todas las marcas, con vehículo de sustitución gratuito mientras reparamos el suyo.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="tel:914088806">📞 Llamar ahora — 91 408 88 06</a>
+      <a class="btn btn-outline" href="#foto-presupuesto">Pedir presupuesto por foto</a>
+    </div>
+  </div>
+</section>
+
+<div class="trust">
+  <div class="wrap">
+    <div class="trust-item"><span class="badge-dot"></span>Taller concertado — Mutua Madrileña</div>
+    <div class="trust-item"><span class="badge-dot"></span>Taller distinguido — Mapfre</div>
+    <div class="trust-item"><span class="badge-dot"></span>Trabajamos con todas las aseguradoras</div>
+    <div class="trust-item"><span class="badge-dot"></span>Coche de sustitución gratis</div>
+  </div>
+</div>
+
+<section id="servicios">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Servicios</div>
+      <h2>Todo lo que necesita, bajo un mismo techo</h2>
+      <p>Desde el primer golpe hasta la entrega con acabado de fábrica, gestionamos cada paso de la reparación.</p>
+    </div>
+  </div>
+  <div class="grid-services wrap" style="padding-left:0; padding-right:0; max-width:1180px;">
+    <div class="service-card">
+      <span class="service-tag">CHAPA · PINTURA</span>
+      <h3>Chapa y pintura profesional</h3>
+      <p>Materiales de altísima calidad y acabados idénticos al color original de fábrica.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-tag">MOVILIDAD</span>
+      <h3>Vehículo de sustitución</h3>
+      <p>Le prestamos un coche de cortesía sin coste mientras el suyo está en el taller.</p>
+    </div>
+    <div class="service-card" id="foto-presupuesto">
+      <span class="service-tag">PRESUPUESTO</span>
+      <h3>Fotopresupuesto online</h3>
+      <p>Envíenos una foto del daño y le damos una estimación de coste sin pisar el taller.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-tag">SEGUROS</span>
+      <h3>Gestión con aseguradoras</h3>
+      <p>Tramitamos el parte y el pago directamente con su compañía de seguros.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-tag">MULTIMARCA</span>
+      <h3>Todas las marcas</h3>
+      <p>Reparamos cualquier marca de vehículo, no solo modelos concretos.</p>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="por-que">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Por qué elegirnos</div>
+      <h2>Un taller de barrio con estándares de concesionario</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">
+        <h3>Rapidez real</h3>
+        <p>Plazos ajustados para que recupere su coche cuanto antes, sin sorpresas de última hora.</p>
+      </div>
+      <div class="why-item">
+        <h3>Precio ajustado</h3>
+        <p>Presupuestos claros, sin cargos ocultos, con la mejor relación calidad-precio de la zona.</p>
+      </div>
+      <div class="why-item">
+        <h3>Calidad de materiales</h3>
+        <p>Solo usamos pinturas y componentes de primera calidad para un acabado duradero.</p>
+      </div>
+      <div class="why-item">
+        <h3>Trato cercano</h3>
+        <p>Somos un taller familiar: hablará siempre con la misma persona, no con un call center.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="brands" id="marcas">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Taller multimarca</div>
+      <h2>Reparamos su marca, sea cual sea</h2>
+    </div>
+    <div class="swatch-row">
+      <div class="swatch c1">Volkswagen</div>
+      <div class="swatch c2">Peugeot</div>
+      <div class="swatch c3">SEAT</div>
+      <div class="swatch c4">Renault</div>
+      <div class="swatch c5">Volvo</div>
+      <div class="swatch c6">Mercedes-Benz</div>
+    </div>
+    <p class="brands-note">Y muchas más marcas — consúltenos si no ve la suya en la lista.</p>
+  </div>
+</section>
+
+<div class="hazard thin"></div>
+
+<div class="photo-cta">
+  <div class="wrap">
+    <div>
+      <h2>Un golpe no tiene por qué ser un dolor de cabeza</h2>
+      <p>Mándenos una foto del daño por WhatsApp o email y le respondemos con una estimación de presupuesto, sin compromiso.</p>
+    </div>
+    <a class="btn btn-outline" href="tel:914088806">Hablar con el taller</a>
+  </div>
+</div>
+
+<section class="contact" id="contacto">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Cómo llegar</div>
+      <h2>Le esperamos en Ciudad Lineal</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="info-block">
+        <h3>Datos de contacto</h3>
+        <div class="info-line"><span class="label">Dirección</span><span class="val">C. de Hermanos Machado, 6<br>28017 Madrid</span></div>
+        <div class="info-line"><span class="label">Metro</span><span class="val">Quintana</span></div>
+        <div class="info-line"><span class="label">Teléfono</span><span class="val mono">91 408 88 06</span></div>
+        <div class="info-line"><span class="label">Fax</span><span class="val mono">91 377 17 25</span></div>
+        <div class="info-line"><span class="label">Lunes a jueves</span><span class="val">08:30–13:30 / 15:30–19:00</span></div>
+        <div class="info-line"><span class="label">Viernes</span><span class="val">08:30–15:00</span></div>
+      </div>
+      <div class="map-block">
+        <div>
+          <h3>Ver ubicación</h3>
+          <p>C. de Hermanos Machado, 6, 28017 Madrid — a un paso del metro Quintana.</p>
+        </div>
+        <a class="btn btn-primary" href="https://maps.google.es/maps?q=Calle+de+Hermanos+Machado+6,+Madrid+28017" target="_blank" rel="noopener">Abrir en Google Maps</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-logo">Talleres Hnos. de la Fuente</div>
+      <div class="footer-links">
+        <a href="#servicios">Servicios</a>
+        <a href="#marcas">Marcas</a>
+        <a href="#contacto">Contacto</a>
+        <a href="tel:914088806">91 408 88 06</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Talleres Hermanos de la Fuente · Chapa y pintura en Madrid</span>
+      <span>C. de Hermanos Machado, 6, 28017 Madrid</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
